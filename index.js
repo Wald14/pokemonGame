@@ -4,19 +4,31 @@ const ctx = canvas.getContext("2d")
 canvas.width = 1024
 canvas.height = 576
 
+//////////////////// MAP SIZE ////////////////////
+//////////////////// !!! Change if changing map size !!! ////////////////////
+const mapSize = {
+  x: 140,
+  y: 80
+}
+
 // Increment by width of map
 // Splits array into sub arrays, each representing a row on the map
 const collisionsMap = []
-for (let i = 0; i < collisions.length; i += 140) {
-  collisionsMap.push(collisions.slice(i, i + 140))
+for (let i = 0; i < collisions.length; i += mapSize.x) {
+  collisionsMap.push(collisions.slice(i, i + mapSize.x))
 }
 
+const battleZonesMap = []
+for (let i = 0; i < battleZonesData.length; i += mapSize.x) {
+  battleZonesMap.push(battleZonesData.slice(i, i + mapSize.x))
+}
+
+///////// BOUNDARIES /////////
 const boundaries = []
 const offset = {
   x: -160,
   y: -1150
 }
-
 collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if (symbol === 1025) {
@@ -31,6 +43,25 @@ collisionsMap.forEach((row, i) => {
   })
 })
 
+///////// BATTLE ZONES /////////
+const battleZones = []
+battleZonesMap.forEach((row, i) => {
+  row.forEach((symbol, j) => {
+    if (symbol === 1025) {
+      battleZones.push(new Boundary({
+        position: {
+          x: j * Boundary.width + offset.x,
+          y: i * Boundary.height + offset.y
+        }
+      })
+      )
+    }
+  })
+})
+
+console.log(battleZones)
+
+///////// IMAGES LOADING /////////
 const image = new Image()
 image.src = './assets/images/ubenTown.png'
 
@@ -101,7 +132,7 @@ const keys = {
 }
 
 
-const movables = [background, ...boundaries, foreground]
+const movables = [background, ...boundaries, foreground, ...battleZones]
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
@@ -116,18 +147,52 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   )
 }
 
+////////////////////////////////////////////////
+//////////////// ANIMATION LOOP ////////////////
+////////////////////////////////////////////////
 function animate() {
   window.requestAnimationFrame(animate)
-  // Render out background
+  // RENDERING LAYERS AND IMAGES
   background.draw()
-  // Render out boundries
   boundaries.forEach((boundry) => {
     boundry.draw()
   })
-  // Render out player
+  battleZones.forEach((battleZone) => {
+    battleZone.draw()
+  })
   player.draw()
-  // Render out foreground
   foreground.draw()
+
+  if (keys.up.pressed || keys.down.pressed || keys.left.pressed || keys.right.pressed) {
+    // BATTLE ZONE
+    for (let i = 0; i < battleZones.length; i++) {
+      const battleZone = battleZones[i]
+      const overlappingArea =
+        (Math.min(
+          player.position.x + player.width,
+          battleZone.position.x + battleZone.width
+        ) -
+        Math.max(player.position.x, battleZone.position.x)) 
+        *
+        (Math.min(
+          player.position.y + player.height,
+          battleZone.position.y + battleZone.height
+        ) -
+        Math.max(player.position.y, battleZone.position.y))
+
+      if (
+        rectangularCollision({
+          rectangle1: player,
+          rectangle2: battleZone
+        }) &&
+        overlappingArea > (player.width * player.height) / 2
+        && Math.random() < 0.01
+      ) {
+        console.log('battle zone collision')
+        break
+      }
+    }
+  }
 
   let moving = true
   player.moving = false
@@ -207,10 +272,10 @@ function animate() {
     }
 
     if (moving) {
-    movables.forEach((movable) => {
-      movable.position.x += 3
-    })
-  }
+      movables.forEach((movable) => {
+        movable.position.x += 3
+      })
+    }
   }
   //////////////// MOVING RIGHT ////////////////
   else if (keys.right.pressed && lastKey === 'right') {
@@ -234,10 +299,10 @@ function animate() {
     }
 
     if (moving) {
-    movables.forEach((movable) => {
-      movable.position.x -= 3
-    })
-  }
+      movables.forEach((movable) => {
+        movable.position.x -= 3
+      })
+    }
   }
 
 }
