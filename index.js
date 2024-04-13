@@ -59,8 +59,6 @@ battleZonesMap.forEach((row, i) => {
   })
 })
 
-console.log(battleZones)
-
 ///////// IMAGES LOADING /////////
 const image = new Image()
 image.src = './assets/images/ubenTown.png'
@@ -131,8 +129,12 @@ const keys = {
   },
 }
 
-
+// Objects that need to move as player moves
 const movables = [background, ...boundaries, foreground, ...battleZones]
+
+////////////////////////////////////////////////
+//////////////// COLLISION TEST ////////////////
+////////////////////////////////////////////////
 
 function rectangularCollision({ rectangle1, rectangle2 }) {
   return (
@@ -141,7 +143,7 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
     // Right of Player vs Left of Box
     && rectangle1.position.x <= rectangle2.position.x + rectangle2.width
     // Top of Player vs Bottom of Box
-    && rectangle1.position.y <= rectangle2.position.y + rectangle2.height
+    && rectangle1.position.y <= rectangle2.position.y + rectangle2.height - (rectangle1.height - (rectangle1.height / 4))
     // Bottom of Player vs Top of Box
     && rectangle1.position.y + rectangle1.height >= rectangle2.position.y
   )
@@ -186,7 +188,7 @@ function animate() {
           rectangle2: battleZone
         }) &&
         overlappingArea > (player.width * player.height) / 2
-        && Math.random() < 0.01
+        && Math.random() < 0.02
       ) {
         console.log('battle zone collision')
         break
