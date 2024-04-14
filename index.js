@@ -207,8 +207,12 @@ function animate() {
         // deactivate current animation loop
         window.cancelAnimationFrame(animationId)
 
+        audio.Map.stop()
+        audio.InitBattle.play()
+        audio.Battle.play()
+
         battle.initiated = true
-        // https://cdnjs.com/
+
         // Handles battle flash
         gsap.to('#overlappingDiv', {
           opacity: 1,
@@ -406,5 +410,13 @@ window.addEventListener('keyup', (e) => {
       keys.down.pressed = false
       break;
 
+  }
+})
+
+let clicked = false
+addEventListener('click', () => {
+  if (!clicked){
+    audio.Map.play()
+    clicked = true
   }
 })

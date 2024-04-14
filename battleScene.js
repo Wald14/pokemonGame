@@ -64,6 +64,7 @@ function initBattle() {
               })
 
               battle.initiated = false
+              audio.Map.play()
             }
           })
         })
@@ -95,8 +96,9 @@ function initBattle() {
                 gsap.to('#overlappingDiv', {
                   opacity: 0
                 })
-                
+
                 battle.initiated = false
+                audio.Map.play()
               }
             })
           })
@@ -125,9 +127,9 @@ function animateBattle() {
     sprite.draw()
   })
 }
-// animate()
-initBattle()
-animateBattle()
+animate()
+// initBattle()
+// animateBattle()
 
 
 

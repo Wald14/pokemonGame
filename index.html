@@ -51,7 +51,7 @@
   <canvas></canvas>
 
   <!-- USRE INTERFACE -->
-  <div id="userInterface">
+  <div id="userInterface" style="display: none;">
     <!-- Opponent Monster Information Box -->
     <div style="
     background-color: white; 
@@ -163,10 +163,16 @@
   </div>
 </div>
 
+<!-- audio control -->
+<!-- howler library  https://cdnjs.com/libraries/howler-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- animation control -->
 <!-- gsap library https://cdnjs.com/libraries/gsap -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
   integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- importing JavaScript files -->
+<script src="./data/audio.js"></script>
 <script src="./data/battleZones.js"></script>
 <script src="./data/collisions.js"></script>
 <script src="./data/attacks.js"></script>
