@@ -11,7 +11,6 @@ const battleBackground = new Sprite({
 
 const draggle = new Monster(monsters.Draggle)
 const emby = new Monster(monsters.Emby)
-console.log(emby)
 
 const renderedSprites = [draggle, emby]
 
@@ -38,6 +37,8 @@ const queue = []
 
 // Event listeners for attack buttons
 document.querySelectorAll('.attackBtn').forEach((button) => {
+  button.style.borderLeft = '1px solid black'
+  button.style.borderRight = '1px solid black'
   button.addEventListener('click', (e)=> {
     const selectedAttack = attacks[e.currentTarget.innerHTML]
     emby.attack({
@@ -55,6 +56,16 @@ document.querySelectorAll('.attackBtn').forEach((button) => {
         renderedSprites
       })
     })
+  })
+  button.addEventListener('mouseenter', (e) => {
+    const selectedAttack = attacks[e.currentTarget.innerHTML]
+    document.querySelector('#attackType').innerHTML = selectedAttack.type
+    document.querySelector('#attackType').style.color = selectedAttack.color
+  })
+
+  button.addEventListener('mouseleave', (e) => {
+    document.querySelector('#attackType').innerHTML = "Attack Type"
+    document.querySelector('#attackType').style.color = 'black'
   })
 })
 
