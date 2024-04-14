@@ -40,20 +40,21 @@ const queue = []
 document.querySelectorAll('.attackBtn').forEach((button) => {
   button.addEventListener('click', (e)=> {
     const selectedAttack = attacks[e.currentTarget.innerHTML]
-    console.log(selectedAttack)
     emby.attack({
       attack: selectedAttack,
       recipient: draggle,
       renderedSprites
     })
+
+    const randomAttack = draggle.attacks[Math.floor(Math.random() * draggle.attacks.length)]
+
     queue.push(()=>{
       draggle.attack({
-        attack: attacks.Tackle,
+        attack: randomAttack,
         recipient: emby,
         renderedSprites
       })
     })
-
   })
 })
 
