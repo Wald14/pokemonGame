@@ -396,29 +396,36 @@ const emby = new Sprite({
   animate: true
 })
 
+
+const renderedSprites = [draggle, emby]
 function animateBattle() {
   window.requestAnimationFrame(animateBattle)
   // Render background and characters
   battleBackground.draw()
-  draggle.draw()
-  emby.draw()
-  // console.log('Animating Battle')
+
+  renderedSprites.forEach((sprite) => {
+    sprite.draw()
+  })
 }
 // animate()
 animateBattle()
 
+
 //////////// EVENT LISTENERS FOR BATTLE //////////////////
 document.querySelectorAll('.attackBtn').forEach((button) => {
-  button.addEventListener('click', ()=> {
-    console.log(button)
+  button.addEventListener('click', (e)=> {
+    const selectedAttack = attacks[e.currentTarget.innerHTML.toLowerCase()]
+    console.log(selectedAttack)
     emby.attack({
-      attack: {
-        name: "Tackle",
-        damage: 10,
-        type: "Normal"
-      },
-      recipient: draggle
+      attack: selectedAttack,
+      recipient: draggle,
+      renderedSprites
     })
+    // draggle.attack({
+    //   attack: selectedAttack,
+    //   recipient: emby,
+    //   renderedSprites
+    // })
   })
 })
 
