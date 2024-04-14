@@ -149,11 +149,16 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   )
 }
 
+const battle = {
+  initiated: false
+}
+
 ////////////////////////////////////////////////
 //////////////// ANIMATION LOOP ////////////////
 ////////////////////////////////////////////////
 function animate() {
-  window.requestAnimationFrame(animate)
+  const animationId = window.requestAnimationFrame(animate)
+
   // RENDERING LAYERS AND IMAGES
   background.draw()
   boundaries.forEach((boundry) => {
@@ -165,8 +170,15 @@ function animate() {
   player.draw()
   foreground.draw()
 
+  let moving = true
+  player.moving = false
+
+  console.log(animationId)
+  if (battle.initiated) return
+
+  // ACTIVATE BATTLE
   if (keys.up.pressed || keys.down.pressed || keys.left.pressed || keys.right.pressed) {
-    // BATTLE ZONE
+    // BATTLE ZONE COLLISION DETECTION
     for (let i = 0; i < battleZones.length; i++) {
       const battleZone = battleZones[i]
       const overlappingArea =
@@ -174,13 +186,13 @@ function animate() {
           player.position.x + player.width,
           battleZone.position.x + battleZone.width
         ) -
-        Math.max(player.position.x, battleZone.position.x)) 
+          Math.max(player.position.x, battleZone.position.x))
         *
         (Math.min(
           player.position.y + player.height,
           battleZone.position.y + battleZone.height
         ) -
-        Math.max(player.position.y, battleZone.position.y))
+          Math.max(player.position.y, battleZone.position.y))
 
       if (
         rectangularCollision({
@@ -190,14 +202,40 @@ function animate() {
         overlappingArea > (player.width * player.height) / 2
         && Math.random() < 0.02
       ) {
-        console.log('battle zone collision')
+        ////// ACTIVATE BATTLE ////////
+        console.log('activate battle')
+        // deactivate current animation loop
+        window.cancelAnimationFrame(animationId)
+
+        battle.initiated = true
+        // https://cdnjs.com/
+        // Handles battle flash
+        gsap.to('#overlappingDiv', {
+          opacity: 1,
+          repeat: 3,
+          yoyo: true,
+          duration: 0.3,
+          onComplete() {
+            gsap.to("#overlappingDiv", {
+              opacity: 1,
+              duration: 0.3,
+              onComplete() {
+                // activate new animation loop
+                animateBattle()
+                gsap.to("#overlappingDiv", {
+                  opacity: 0,
+                  duration: 0.3,
+                })
+              }
+            })
+          }
+        })
         break
       }
     }
   }
 
-  let moving = true
-  player.moving = false
+
   //////////////// MOVING UP ////////////////
   if (keys.up.pressed && lastKey === 'up') {
     player.moving = true
@@ -309,6 +347,23 @@ function animate() {
 
 }
 animate()
+
+const battleBackgroundImage = new Image()
+battleBackgroundImage.src = './assets/images/battleBackground.png'
+
+const battleBackground = new Sprite({
+  position: {
+    x: 0,
+    y: 0
+  },
+  image: battleBackgroundImage
+})
+
+function animateBattle() {
+  window.requestAnimationFrame(animateBattle)
+  battleBackground.draw()
+  console.log('Animating Battle')
+}
 
 let lastKey = ''
 window.addEventListener('keydown', (e) => {
