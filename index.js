@@ -403,8 +403,8 @@ function animateBattle() {
   emby.draw()
   // console.log('Animating Battle')
 }
-animate()
-// animateBattle()
+// animate()
+animateBattle()
 
 let lastKey = ''
 window.addEventListener('keydown', (e) => {
