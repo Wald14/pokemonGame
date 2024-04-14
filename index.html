@@ -113,7 +113,7 @@
   <!-- MAIN CANVAS -->
   <canvas></canvas>
 
-  <!-- Attack Bar -->
+  <!-- Dialouge and Attack Bar -->
   <div style="
     background-color: white;
     height: 140px; 
@@ -124,6 +124,19 @@
     border-top: 4px solid black;
     display: flex;
    ">
+    <div 
+      id="dialougeBox" 
+      style="
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: white;
+          padding: 24px;
+          display: none;
+        "
+      ></div>
     <!-- Attacks -->
     <div style="
       width: 66.66%;
@@ -156,3 +169,4 @@
 <script src="./data/attacks.js"></script>
 <script src="./classes.js"></script>
 <script src="./index.js"></script>
+<script src="./battleScene.js"></script>

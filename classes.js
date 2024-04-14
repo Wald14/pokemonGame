@@ -6,7 +6,8 @@ class Sprite {
     sprites = [],
     animate = false,
     isEnemy = false,
-    rotation = 0
+    rotation = 0,
+    name
   }) {
     this.position = position
     this.image = image
@@ -22,6 +23,7 @@ class Sprite {
     this.health = 100
     this.isEnemy = isEnemy,
     this.rotation = rotation
+    this.name = name
   }
   draw() {
     ctx.save()
@@ -61,6 +63,9 @@ class Sprite {
 
 
   attack({ attack, recipient, renderedSprites }) {
+    document.querySelector('#dialougeBox').style.display = 'block'
+    document.querySelector('#dialougeBox').innerHTML = `${this.name} used ${attack.name}`
+
     let moveDistX = 20
     let moveDistY = 4
     let healthBar = '#enemyHealthBar'
