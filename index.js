@@ -204,7 +204,6 @@ function animate() {
         && Math.random() < 0.02
       ) {
         ////// ACTIVATE BATTLE ////////
-        console.log('activate battle')
         // deactivate current animation loop
         window.cancelAnimationFrame(animationId)
 
@@ -222,6 +221,7 @@ function animate() {
               duration: 0.3,
               onComplete() {
                 // activate new animation loop
+                initBattle()
                 animateBattle()
                 gsap.to("#overlappingDiv", {
                   opacity: 0,
