@@ -124,6 +124,7 @@
     border-top: 4px solid black;
     display: flex;
    ">
+   <!-- Dialouge Box -->
     <div 
       id="dialougeBox" 
       style="
@@ -135,16 +136,18 @@
           background-color: white;
           padding: 24px;
           display: none;
+          cursor: pointer;
         "
       ></div>
     <!-- Attacks -->
-    <div style="
-      width: 66.66%;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-    ">
-      <button class="attackBtn">Tackle</button>
-      <button class="attackBtn">Fireball</button>
+    <div 
+      id= "attacksBox"
+      style="
+        width: 66.66%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      "
+    >
     </div>
     <!-- Attack Type -->
     <div style="
@@ -167,6 +170,7 @@
 <script src="./data/battleZones.js"></script>
 <script src="./data/collisions.js"></script>
 <script src="./data/attacks.js"></script>
+<script src="./data/monsters.js"></script>
 <script src="./classes.js"></script>
 <script src="./index.js"></script>
 <script src="./battleScene.js"></script>

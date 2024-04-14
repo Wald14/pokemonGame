@@ -5,9 +5,7 @@ class Sprite {
     frames = { max: 1, hold: 10 },
     sprites = [],
     animate = false,
-    isEnemy = false,
     rotation = 0,
-    name
   }) {
     this.position = position
     this.image = image
@@ -20,20 +18,17 @@ class Sprite {
     this.animate = animate
     this.sprites = sprites
     this.opacity = 1
-    this.health = 100
-    this.isEnemy = isEnemy,
     this.rotation = rotation
-    this.name = name
   }
   draw() {
     ctx.save()
     ctx.translate(
-      this.position.x + this.width / 2, 
+      this.position.x + this.width / 2,
       this.position.y + this.height / 2
     )
     ctx.rotate(this.rotation)
     ctx.translate(
-      -this.position.x - this.width / 2, 
+      -this.position.x - this.width / 2,
       -this.position.y - this.height / 2
     )
     ctx.globalAlpha = this.opacity
@@ -60,7 +55,33 @@ class Sprite {
       else this.frames.val = 0
     }
   }
+}
 
+class Monster extends Sprite {
+  constructor({
+    position,
+    image,
+    frames = { max: 1, hold: 10 },
+    sprites = [],
+    animate = false,
+    rotation = 0,
+    isEnemy = false,
+    name,
+    attacks
+  }) {
+    super({
+      position,
+      image,
+      frames,
+      sprites,
+      animate,
+      rotation,
+    })
+    this.health = 100
+    this.isEnemy = isEnemy,
+    this.name = name
+    this.attacks = attacks
+  }
 
   attack({ attack, recipient, renderedSprites }) {
     document.querySelector('#dialougeBox').style.display = 'block'
@@ -73,9 +94,9 @@ class Sprite {
 
     if (this.isEnemy) {
       moveDistX = -20,
-      moveDistY = -4,
-      healthBar = "#playerHealthBar",
-      rotation = -2.5 
+        moveDistY = -4,
+        healthBar = "#playerHealthBar",
+        rotation = -2.5
     }
 
     this.health -= attack.damage
@@ -135,7 +156,7 @@ class Sprite {
       case 'Tackle':
         const tl = gsap.timeline()
 
-        
+
 
         tl.to(this.position, {
           x: this.position.x - moveDistX,
