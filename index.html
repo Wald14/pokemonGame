@@ -66,19 +66,19 @@
         background-color: #ccc;
         margin-top: 10px;
       "></div>
-      <div style="
-        height: 5px; 
-        background-color: green;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-      "></div>
+      <div id="enemyHealthBar" style="
+          height: 5px; 
+          background-color: green;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+        "></div>
     </div>
   </div>
 
-    <!-- Player Monster Information Box -->
-    <div style="
+  <!-- Player Monster Information Box -->
+  <div style="
     background-color: white; 
     width: 250px; 
     position: absolute;
@@ -99,14 +99,14 @@
         background-color: #ccc;
         margin-top: 10px;
       "></div>
-      <div style="
-        height: 5px; 
-        background-color: green;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-      "></div>
+      <div id="playerHealthBar" style="
+          height: 5px; 
+          background-color: green;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+        "></div>
     </div>
   </div>
 
@@ -130,10 +130,8 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
     ">
-      <button>Attack 1</button>
-      <button>Attack 2</button>
-      <button>Attack 3</button>
-      <button>Attack 4</button>
+      <button class="attackBtn">Tackle</button>
+      <button class="attackBtn">Attack 2</button>
     </div>
     <!-- Attack Type -->
     <div style="

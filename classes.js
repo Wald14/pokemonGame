@@ -1,5 +1,12 @@
 class Sprite {
-  constructor({ position, image, frames = { max: 1, hold: 10 }, sprites = [], animate = false }) {
+  constructor({ 
+    position, 
+    image, 
+    frames = { max: 1, hold: 10 }, 
+    sprites = [], 
+    animate = false,
+    isEnemy = false,
+  }) {
     this.position = position
     this.image = image
     this.frames = { ...frames, val: 0, elapsed: 0 }
@@ -10,8 +17,13 @@ class Sprite {
     }
     this.animate = animate
     this.sprites = sprites
+    this.opacity = 1
+    this.health = 100
+    this.isEnemy = isEnemy
   }
   draw() {
+    ctx.save()
+    ctx.globalAlpha = this.opacity
     ctx.drawImage(
       this.image, // HTML image
       this.frames.val * this.width, // crop left
@@ -23,6 +35,7 @@ class Sprite {
       this.image.width / this.frames.max, // ACTUAL render
       this.image.height, // ACTUAL render
     )
+    ctx.restore()
 
     if (!this.animate) return
 
@@ -33,6 +46,57 @@ class Sprite {
       if (this.frames.val < this.frames.max - 1) this.frames.val++
       else this.frames.val = 0
     }
+  }
+
+  attack({ attack, recipient }) {
+    const tl = gsap.timeline()
+
+    this.health -= attack.damage
+
+    let moveDistX = 20
+    let moveDistY = 4
+    let healthBar = '#enemyHealthBar'
+
+    if(this.isEnemy) {
+      moveDistX = -20, 
+      moveDistY = -4,
+      healthBar = "#playerHealthBar"
+    }
+
+
+    tl.to(this.position, {
+      x: this.position.x - moveDistX,
+      y: this.position.y + moveDistY
+    }).to(this.position, {
+      x: this.position.x + (moveDistX * 2),
+      y: this.position.y - (moveDistY * 3),
+      duration: 0.1,
+      onComplete: () => {
+        // Enemy actually gets hit
+        gsap.to(healthBar, {
+          width: this.health + '%'
+        })
+
+        gsap.to(recipient.position, {
+          x: recipient.position.x + (moveDistX / 2),
+          y: recipient.position.y - moveDistY,
+          yoyo: true,
+          repeat: 5,
+          duration: 0.08,
+        })
+
+        gsap.to(recipient, {
+          opacity: 0,
+          repeat: 5,
+          yoyo: true,
+          duration: 0.08,
+        })
+
+      }
+    }).to(this.position, {
+      x: this.position.x,
+      y: this.position.y
+    })
   }
 }
 
