@@ -27,6 +27,10 @@ function initBattle() {
   renderedSprites = [draggle, emby]
   queue = []
 
+  // Set Monster Name in Health Bar
+  // const enemyName = document.querySelector("#enemyName")
+  // enemyName.innerHTML(draggle.name)
+
   emby.attacks.forEach(attack => {
     const button = document.createElement('button')
     button.classList.add('attackBtn')

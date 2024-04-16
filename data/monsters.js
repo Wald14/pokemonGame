@@ -31,5 +31,39 @@ const monsters = {
     isEnemy: true,
     name: "Draggle",
     attacks: [attacks.Tackle, attacks.Fireball]
+  },
+  Hydrusquid: {
+    position: {
+      x: 800,
+      y: 110
+    },
+    image: {
+      src: './assets/images/hydrusquid.png'
+    },
+    frames: {
+      max: 4,
+      hold: 30,
+    },
+    animate: true,
+    isEnemy: true,
+    name: "Hydrusquid",
+    attacks: [attacks.Tackle]
+  },
+  Chomp: {
+    position: {
+      x: 800,
+      y: 110
+    },
+    image: {
+      src: './assets/images/chomp.png'
+    },
+    frames: {
+      max: 4,
+      hold: 30,
+    },
+    animate: true,
+    isEnemy: true,
+    name: "Chomp",
+    attacks: [attacks.Tackle]
   }
 }

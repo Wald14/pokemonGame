@@ -240,11 +240,12 @@ function animate() {
     }
   }
 
+  /////////////////////////////////////////////////
+  //////////////// PLAYER MOVEMENT /////////////////////
+  /////////////////////////////////////////////////
 
   //////////////// MOVING UP & LEFT ////////////////
-  if (keys.up.pressed && keys.left.pressed
-    // && lastKey === 'up'
-  ) {
+  if (keys.up.pressed && keys.left.pressed) {
     player.animate = true
     player.image = player.sprites[lastKey]
     for (let i = 0; i < boundaries.length; i++) {
@@ -271,9 +272,7 @@ function animate() {
       })
     }
   //////////////// MOVING UP & RIGHT ////////////////
-  } else if (keys.up.pressed && keys.right.pressed
-    // && lastKey === 'up'
-  ) {
+  } else if (keys.up.pressed && keys.right.pressed) {
     player.animate = true
     player.image = player.sprites[lastKey]
     for (let i = 0; i < boundaries.length; i++) {
@@ -300,9 +299,7 @@ function animate() {
       })
     }
   //////////////// MOVING DOWN & RIGHT ////////////////
-} else if (keys.down.pressed && keys.right.pressed
-  // && lastKey === 'up'
-) {
+} else if (keys.down.pressed && keys.right.pressed) {
   player.animate = true
   player.image = player.sprites[lastKey]
   for (let i = 0; i < boundaries.length; i++) {
@@ -329,9 +326,7 @@ function animate() {
     })
   }
   //////////////// MOVING DOWN & LEFT ////////////////
-} else if (keys.down.pressed && keys.left.pressed
-  // && lastKey === 'up'
-) {
+} else if (keys.down.pressed && keys.left.pressed) {
   player.animate = true
   player.image = player.sprites[lastKey]
   for (let i = 0; i < boundaries.length; i++) {
@@ -358,9 +353,7 @@ function animate() {
     })
   }
 //////////////// MOVING UP ////////////////
-} else if (keys.up.pressed 
-    // && lastKey === 'up'
-  ) {
+} else if (keys.up.pressed) {
     player.animate = true
     player.image = player.sprites.up
     for (let i = 0; i < boundaries.length; i++) {
@@ -387,9 +380,7 @@ function animate() {
     }
   }
   //////////////// MOVING DOWN ////////////////
-  else if (keys.down.pressed 
-    // && lastKey === 'down'
-  ) {
+  else if (keys.down.pressed) {
     player.animate = true
     player.image = player.sprites.down
     for (let i = 0; i < boundaries.length; i++) {
@@ -416,9 +407,7 @@ function animate() {
     }
   }
   //////////////// MOVING LEFT ////////////////
-  else if (keys.left.pressed 
-    // && lastKey === 'left'
-  ) {
+  else if (keys.left.pressed) {
     player.animate = true
     player.image = player.sprites.left
     for (let i = 0; i < boundaries.length; i++) {
@@ -445,9 +434,7 @@ function animate() {
     }
   }
   //////////////// MOVING RIGHT ////////////////
-  else if (keys.right.pressed 
-    // && lastKey === 'right'
-  ) {
+  else if (keys.right.pressed) {
     player.animate = true
     player.image = player.sprites.right
     for (let i = 0; i < boundaries.length; i++) {
