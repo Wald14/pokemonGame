@@ -61,10 +61,10 @@ battleZonesMap.forEach((row, i) => {
 
 ///////// IMAGES LOADING /////////
 const image = new Image()
-image.src = './assets/images/ubenTown.png'
+image.src = './assets/images/ubenTown2.0.png'
 
 const foregroundImage = new Image()
-foregroundImage.src = './assets/images/ubenTownForeground.png'
+foregroundImage.src = './assets/images/ubenTownForeground2.0.png'
 
 const playerUpImage = new Image()
 playerUpImage.src = './assets/images/playerUp.png'
@@ -201,7 +201,7 @@ function animate() {
           rectangle2: battleZone
         }) &&
         overlappingArea > (player.width * player.height) / 2
-        && Math.random() < 0.02
+        && Math.random() < 0.01
       ) {
         ////// ACTIVATE BATTLE ////////
         // deactivate current animation loop
