@@ -241,8 +241,124 @@ function animate() {
   }
 
 
-  //////////////// MOVING UP ////////////////
-  if (keys.up.pressed 
+  //////////////// MOVING UP & LEFT ////////////////
+  if (keys.up.pressed && keys.left.pressed
+    // && lastKey === 'up'
+  ) {
+    player.animate = true
+    player.image = player.sprites[lastKey]
+    for (let i = 0; i < boundaries.length; i++) {
+      const boundry = boundaries[i]
+      if (rectangularCollision({
+        rectangle1: player,
+        rectangle2: {
+          ...boundry, position: {
+            x: boundry.position.x + 2,
+            y: boundry.position.y + 2
+          }
+        }
+      })
+      ) {
+        moving = false
+        break
+      }
+    }
+
+    if (moving) {
+      movables.forEach((movable) => {
+        movable.position.x += 2
+        movable.position.y += 2
+      })
+    }
+  //////////////// MOVING UP & RIGHT ////////////////
+  } else if (keys.up.pressed && keys.right.pressed
+    // && lastKey === 'up'
+  ) {
+    player.animate = true
+    player.image = player.sprites[lastKey]
+    for (let i = 0; i < boundaries.length; i++) {
+      const boundry = boundaries[i]
+      if (rectangularCollision({
+        rectangle1: player,
+        rectangle2: {
+          ...boundry, position: {
+            x: boundry.position.x - 2,
+            y: boundry.position.y + 2
+          }
+        }
+      })
+      ) {
+        moving = false
+        break
+      }
+    }
+
+    if (moving) {
+      movables.forEach((movable) => {
+        movable.position.x -= 2
+        movable.position.y += 2
+      })
+    }
+  //////////////// MOVING DOWN & RIGHT ////////////////
+} else if (keys.down.pressed && keys.right.pressed
+  // && lastKey === 'up'
+) {
+  player.animate = true
+  player.image = player.sprites[lastKey]
+  for (let i = 0; i < boundaries.length; i++) {
+    const boundry = boundaries[i]
+    if (rectangularCollision({
+      rectangle1: player,
+      rectangle2: {
+        ...boundry, position: {
+          x: boundry.position.x - 2,
+          y: boundry.position.y - 2
+        }
+      }
+    })
+    ) {
+      moving = false
+      break
+    }
+  }
+
+  if (moving) {
+    movables.forEach((movable) => {
+      movable.position.x -= 2
+      movable.position.y -= 2
+    })
+  }
+  //////////////// MOVING DOWN & LEFT ////////////////
+} else if (keys.down.pressed && keys.left.pressed
+  // && lastKey === 'up'
+) {
+  player.animate = true
+  player.image = player.sprites[lastKey]
+  for (let i = 0; i < boundaries.length; i++) {
+    const boundry = boundaries[i]
+    if (rectangularCollision({
+      rectangle1: player,
+      rectangle2: {
+        ...boundry, position: {
+          x: boundry.position.x + 2,
+          y: boundry.position.y - 2
+        }
+      }
+    })
+    ) {
+      moving = false
+      break
+    }
+  }
+
+  if (moving) {
+    movables.forEach((movable) => {
+      movable.position.x += 2
+      movable.position.y -= 2
+    })
+  }
+//////////////// MOVING UP ////////////////
+} else if (keys.up.pressed 
     // && lastKey === 'up'
   ) {
     player.animate = true
@@ -360,10 +476,6 @@ function animate() {
 
 }
 // animate()
-
-
-
-
 
 //////////// EVENT LISTENERS FOR MOVING PLAYER //////////////////
 let lastKey = ''
