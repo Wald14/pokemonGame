@@ -9,7 +9,7 @@ const battleBackground = new Sprite({
   image: battleBackgroundImage
 })
 
-let draggle
+let enemyMonster
 let emby
 let renderedSprites
 let battleAnimationId
@@ -22,14 +22,20 @@ function initBattle() {
   document.querySelector('#playerHealthBar').style.width = '100%'
   document.querySelector('#attacksBox').replaceChildren()
 
-  draggle = new Monster(monsters.Draggle)
+  // Random Enemy
+  const enemyMonsterArr = Object.keys(monsters)
+  const randomEnemy = enemyMonsterArr[Math.floor(Math.random() * (enemyMonsterArr.length - 1)) + 1]
+
+  // Generate and Render Monsters
+  enemyMonster = new Monster(monsters[randomEnemy])
   emby = new Monster(monsters.Emby)
-  renderedSprites = [draggle, emby]
+  renderedSprites = [enemyMonster, emby]
   queue = []
 
   // Set Monster Name in Health Bar
-  // const enemyName = document.querySelector("#enemyName")
-  // enemyName.innerHTML(draggle.name)
+  const enemyName = document.querySelector("#enemyName")
+  console.log(enemyName)
+  enemyName.innerHTML = enemyMonster.name
 
   emby.attacks.forEach(attack => {
     const button = document.createElement('button')
@@ -46,13 +52,13 @@ function initBattle() {
       const selectedAttack = attacks[e.currentTarget.innerHTML]
       emby.attack({
         attack: selectedAttack,
-        recipient: draggle,
+        recipient: enemyMonster,
         renderedSprites
       })
 
-      if (draggle.health <= 0) {
+      if (enemyMonster.health <= 0) {
         queue.push(() => {
-          draggle.faint()
+          enemyMonster.faint()
         })
         queue.push(() => {
           // fade back to black
@@ -73,12 +79,11 @@ function initBattle() {
           })
         })
       }
-      // draggle or enemy attacks here
-      const randomAttack =
-        draggle.attacks[Math.floor(Math.random() * draggle.attacks.length)]
+      // enemyMonster attacks here
+      const randomAttack = enemyMonster.attacks[Math.floor(Math.random() * enemyMonster.attacks.length)]
 
       queue.push(() => {
-        draggle.attack({
+        enemyMonster.attack({
           attack: randomAttack,
           recipient: emby,
           renderedSprites

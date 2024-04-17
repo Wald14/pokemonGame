@@ -35,7 +35,7 @@ const monsters = {
   Hydrusquid: {
     position: {
       x: 800,
-      y: 110
+      y: 108
     },
     image: {
       src: './assets/images/hydrusquid.png'
@@ -52,7 +52,7 @@ const monsters = {
   Chomp: {
     position: {
       x: 800,
-      y: 110
+      y: 70
     },
     image: {
       src: './assets/images/chomp.png'
