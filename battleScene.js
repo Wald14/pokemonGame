@@ -46,8 +46,8 @@ function initBattle() {
 
   // Event listeners for attack buttons
   document.querySelectorAll('.attackBtn').forEach((button) => {
-    button.style.borderLeft = '1px solid black'
-    button.style.borderRight = '1px solid black'
+    // button.style.borderLeft = '1px solid black'
+    // button.style.borderRight = '1px solid black'
     button.addEventListener('click', (e) => {
       const selectedAttack = attacks[e.currentTarget.innerHTML]
       emby.attack({

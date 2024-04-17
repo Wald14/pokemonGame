@@ -13,7 +13,7 @@ const monsters = {
     },
     animate: true,
     name: "Emby",
-    attacks: [attacks.Tackle, attacks.Fireball]
+    attacks: [attacks.Tackle, attacks.Fireball, attacks.Slash]
   },
   Draggle: {
     position: {
@@ -47,7 +47,7 @@ const monsters = {
     animate: true,
     isEnemy: true,
     name: "Hydrusquid",
-    attacks: [attacks.Tackle]
+    attacks: [attacks.Tackle, attacks.Slash]
   },
   Chomp: {
     position: {

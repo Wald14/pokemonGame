@@ -5,6 +5,12 @@ const attacks = {
     type: "Normal",
     color: 'black'
   },
+  Slash: {
+    name: "Slash",
+    damage: 15,
+    type: "Normal",
+    color: 'black'
+  },
   Fireball: {
     name: "Fireball",
     damage: 25,

@@ -173,6 +173,7 @@ class Monster extends Sprite {
         break;
 
       /////////// TACKLE ///////////////
+      case 'Slash':
       case 'Tackle':
         const tl = gsap.timeline()
 

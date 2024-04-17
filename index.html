@@ -28,6 +28,15 @@
       background-color: #ddd;
       cursor: pointer;
     }
+
+    .prevent-select {
+      /* Safari */
+      -webkit-user-select: none;
+      /* IE 10 and IE 11 */
+      -ms-user-select: none;
+      /* Standard syntax */
+      user-select: none;
+    }
   </style>
 </head>
 
@@ -63,12 +72,10 @@
     padding: 12px;
     ">
       <!-- Name -->
-      <h2 
-      id="enemyName"
-      style="
+      <h2 id="enemyName" style="
       font-size: 16px; 
       margin: 0px
-      ">Draggle</h2>
+      ">Opponent</h2>
       <!-- Health Bar -->
       <div style="position: relative">
         <div style="
@@ -133,7 +140,9 @@
     display: flex;
     ">
       <!-- Dialouge Box -->
-      <div id="dialougeBox" style="
+      <div id="dialougeBox" 
+      class="prevent-select"
+      style="
           position: absolute;
           top: 0;
           right: 0;
@@ -167,7 +176,9 @@
 
 <!-- audio control -->
 <!-- howler library  https://cdnjs.com/libraries/howler-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"
+  integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- animation control -->
 <!-- gsap library https://cdnjs.com/libraries/gsap -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
