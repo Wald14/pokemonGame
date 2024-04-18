@@ -120,59 +120,7 @@ class Monster extends Sprite {
     recipient.health -= attack.damage
 
     switch (attack.name) {
-      /////////// FIREBALL ///////////////
-      case 'Fireball':
-        audio.InitFireball.play()
-        const fireballImage = new Image()
-        fireballImage.src = './assets/images/fireball.png'
-        const fireball = new Sprite({
-          position: {
-            x: this.position.x,
-            y: this.position.y
-          },
-          image: fireballImage,
-          frames: {
-            max: 4,
-            hold: 10
-          },
-          animate: true,
-          rotation: rotation
-        })
-
-        renderedSprites.splice(1, 0, fireball)
-
-        gsap.to(fireball.position, {
-          x: recipient.position.x,
-          y: recipient.position.y,
-          onComplete: () => {
-            // Enemy actually gets hit
-            audio.FireballHit.play()
-            gsap.to(healthBar, {
-              width: recipient.health + '%'
-            })
-
-            gsap.to(recipient.position, {
-              x: recipient.position.x + (moveDistX / 2),
-              y: recipient.position.y - moveDistY,
-              yoyo: true,
-              repeat: 5,
-              duration: 0.08,
-            })
-
-            gsap.to(recipient, {
-              opacity: 0,
-              repeat: 5,
-              yoyo: true,
-              duration: 0.08,
-            })
-
-            renderedSprites.splice(1, 1)
-          }
-        })
-
-        break;
-
-      /////////// TACKLE ///////////////
+      /////////// Monster Animation Only: Tackle & Slash ///////////////
       case 'Slash':
       case 'Tackle':
         const tl = gsap.timeline()
@@ -211,6 +159,125 @@ class Monster extends Sprite {
           x: this.position.x,
           y: this.position.y
         })
+        break;
+
+      /////////// FIREBALL ///////////////
+      case 'Fireball':
+        audio.InitFireball.play()
+        const fireballImage = new Image()
+        fireballImage.src = './assets/images/fireball.png'
+        const fireball = new Sprite({
+          position: {
+            x: this.position.x,
+            y: this.position.y
+          },
+          image: fireballImage,
+          frames: {
+            max: 4,
+            hold: 10
+          },
+          animate: true,
+          rotation: rotation
+        })
+
+        renderedSprites.splice(1, 0, fireball)
+
+        gsap.to(fireball.position, {
+          x: recipient.position.x,
+          y: recipient.position.y + (recipient.height / 3),
+          onComplete: () => {
+            // Enemy actually gets hit
+            audio.FireballHit.play()
+            gsap.to(healthBar, {
+              width: recipient.health + '%'
+            })
+
+            gsap.to(recipient.position, {
+              x: recipient.position.x + (moveDistX / 2),
+              y: recipient.position.y - moveDistY,
+              yoyo: true,
+              repeat: 5,
+              duration: 0.08,
+            })
+
+            gsap.to(recipient, {
+              opacity: 0,
+              repeat: 5,
+              yoyo: true,
+              duration: 0.08,
+            })
+
+            renderedSprites.splice(1, 1)
+          }
+        })
+
+        break;
+
+      /////////// Flamethrower ///////////////
+      case 'Flamethrower':
+        audio.InitFireball.play();
+        const flamethrowerImage = new Image();
+        flamethrowerImage.src = './assets/images/fireball.png';
+
+        const flames = [];
+
+        for (let i = 0; i < 8; i++) {
+          const flame = new Sprite({
+            position: {
+              x: this.position.x,
+              y: this.position.y
+            },
+            image: flamethrowerImage,
+            frames: {
+              max: 4,
+              hold: 10
+            },
+            animate: true,
+            rotation: rotation
+          });
+
+          flames.push(flame);
+          renderedSprites.splice(1, 0, flame);
+        }
+
+        const flameDuration = 0.05;
+        // const totalDuration = flameDuration * 6; // Total duration for all flames
+
+        flames.forEach((flame, index) => {
+          const delay = index * flameDuration;
+          const isLastFlame = index === flames.length - 1;
+
+          gsap.to(flame.position, {
+            delay: delay,
+            x: recipient.position.x,
+            y: recipient.position.y + (recipient.height / 3),
+            onComplete: () => {
+              renderedSprites.splice(1, 1)
+              if ((index / 2) % 1 === 0) audio.FireballHit.play();
+              // Only execute these animations on the last flame
+              if (isLastFlame) {
+                gsap.to(healthBar, {
+                  width: recipient.health + '%'
+                });
+
+                gsap.to(recipient.position, {
+                  x: recipient.position.x + (moveDistX / 2),
+                  y: recipient.position.y - moveDistY,
+                  yoyo: true,
+                  repeat: 5,
+                  duration: 0.08,
+                });
+
+                gsap.to(recipient, {
+                  opacity: 0,
+                  repeat: 5,
+                  yoyo: true,
+                  duration: 0.08,
+                });
+              }
+            }
+          });
+        });
         break;
     }
   }
